@@ -240,14 +240,49 @@ h1,h2,h3,h4,.brand-logo span,.form-section-title{font-family:'Orbitron', sans-se
 }
 .toggle-password:hover{color:var(--cyan); background:rgba(0,240,255,0.08);}
 
-.text-muted a{color:var(--cyan);}
-.text-muted a:hover{color:var(--magenta);}
-
 .alert-danger{
     background:rgba(255,0,60,0.1); border:1px solid rgba(255,0,60,0.4);
     color:#ff7c93; border-radius:10px; font-size:.85rem;
 }
 
+/* ============================================================
+   SMALL TEXT / LINKS under the form
+   "Forgot password?", "Don't have an account?", "Already have an
+   account?" lines — forced visible color for dark background.
+   ============================================================ */
+.text-muted,
+small.text-muted,
+p.text-muted,
+.mb-0.text-muted {
+    color: #8fa3c9 !important;
+}
+
+.text-muted a,
+small.text-muted a,
+p.text-muted a {
+    color: var(--cyan);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.text-muted a:hover,
+small.text-muted a:hover,
+p.text-muted a:hover {
+    color: var(--magenta);
+    text-decoration: underline;
+}
+
+small.text-muted {
+    display: block;
+    margin-top: .35rem;
+    font-size: .78rem;
+    letter-spacing: .3px;
+}
+
+/* ============================================================
+   EMPLOYEE LIST — Justified layout
+   ============================================================ */
 .employees-container h3{
     display:flex; align-items:center; font-size:1rem; font-weight:700; color:#fff;
     margin-bottom:.75rem; padding-bottom:.5rem;
@@ -259,44 +294,6 @@ h1,h2,h3,h4,.brand-logo span,.form-section-title{font-family:'Orbitron', sans-se
 .employees-list::-webkit-scrollbar-thumb{background:rgba(0,240,255,0.3); border-radius:4px;}
 
 .employee-item{
-    display:flex; justify-content:space-between; align-items:center;
-    padding:.55rem 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:.85rem;
-}
-.employee-item:last-child{border-bottom:none;}
-.employee-info{display:flex; align-items:center; gap:.65rem;}
-.employee-icon{
-    width:28px; height:28px; border-radius:6px;
-    background:linear-gradient(135deg, var(--cyan), var(--green));
-    display:flex; align-items:center; justify-content:center;
-    color:#020409; font-weight:800; font-size:.78rem; flex-shrink:0;
-    box-shadow:0 0 10px rgba(0,240,255,0.4);
-}
-.employee-details{display:flex; flex-direction:column; min-width:0;}
-.employee-name{font-weight:700; color:#e8f0ff; font-size:.84rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.employee-email{font-size:.7rem; color:#7c8db3; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-.employee-role{
-    display:inline-block; padding:.2rem .45rem;
-    background:rgba(0,255,156,0.12); border:1px solid rgba(0,255,156,0.4); color:var(--green);
-    border-radius:4px; font-size:.63rem; text-transform:uppercase; letter-spacing:.5px; flex-shrink:0;
-}
-.employee-department{font-size:.7rem; color:#7c8db3; margin-left:.4rem; flex-shrink:0;}
-.employees-stats{
-    display:flex; justify-content:space-between; font-size:.78rem; color:#8fa3c9;
-    margin-top:.5rem; padding-top:.5rem; border-top:1px solid rgba(255,255,255,0.08); flex-shrink:0;
-}
-.help-text{text-align:center; padding:2rem; color:#7c8db3;}
-.help-text i{font-size:1.4rem; color:var(--cyan); margin-bottom:.5rem; display:block;}
-
-@media (max-width:576px){
-    .landscape-wrapper{max-width:100%;}
-    .login-container, .employees-container{margin:.5rem; padding:1rem;}
-    .brand-logo span{font-size:1.15rem;}
-    .login-header h2{font-size:1.05rem;}
-}
-/* ============================================================
-   EMPLOYEE LIST — Justified layout
-   ============================================================ */
-.employee-item{
     display:flex;
     align-items:center;
     gap:.65rem;
@@ -306,12 +303,8 @@ h1,h2,h3,h4,.brand-logo span,.form-section-title{font-family:'Orbitron', sans-se
     font-size:.85rem;
     transition:background .2s ease;
 }
-.employee-item:hover{
-    background:rgba(0,240,255,0.04);
-}
-.employee-item:last-child{
-    border-bottom:none;
-}
+.employee-item:hover{background:rgba(0,240,255,0.04);}
+.employee-item:last-child{border-bottom:none;}
 
 .employee-info{
     display:flex;
@@ -374,4 +367,18 @@ h1,h2,h3,h4,.brand-logo span,.form-section-title{font-family:'Orbitron', sans-se
     letter-spacing:.5px;
     flex-shrink:0;
     white-space:nowrap;
+}
+
+.employees-stats{
+    display:flex; justify-content:space-between; font-size:.78rem; color:#8fa3c9;
+    margin-top:.5rem; padding-top:.5rem; border-top:1px solid rgba(255,255,255,0.08); flex-shrink:0;
+}
+.help-text{text-align:center; padding:2rem; color:#7c8db3;}
+.help-text i{font-size:1.4rem; color:var(--cyan); margin-bottom:.5rem; display:block;}
+
+@media (max-width:576px){
+    .landscape-wrapper{max-width:100%;}
+    .login-container, .employees-container{margin:.5rem; padding:1rem;}
+    .brand-logo span{font-size:1.15rem;}
+    .login-header h2{font-size:1.05rem;}
 }
