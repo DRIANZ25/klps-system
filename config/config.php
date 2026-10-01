@@ -35,14 +35,20 @@ define('AI_API_KEY', getenv('AI_API_KEY') !== false ? getenv('AI_API_KEY') : '')
 // ============================================================
 // GMAIL SMTP SETTINGS
 // ============================================================
-const SMTP_HOST      = 'smtp.gmail.com';
-const SMTP_PORT      = 587;
-const SMTP_SECURE    = 'tls';
-const SMTP_USER      = 'lancetejero05@gmail.com';
-const SMTP_FROM      = 'lancetejero05@gmail.com';
-const SMTP_FROM_NAME = 'KLPS';
-
-define('SMTP_PASS', getenv('SMTP_PASS') !== false ? getenv('SMTP_PASS') : '');
+// ============================================================
+// SMTP SETTINGS (environment-configurable)
+//
+// Local dev: falls back to Gmail SMTP.
+// Railway:    uses Mailtrap via env vars (port 2525, since
+//             Railway blocks outbound SMTP on ports 25/465/587).
+// ============================================================
+define('SMTP_HOST',      getenv('SMTP_HOST')      ?: 'smtp.gmail.com');
+define('SMTP_PORT',      (int)(getenv('SMTP_PORT') ?: 587));
+define('SMTP_SECURE',    getenv('SMTP_SECURE')    ?: 'tls');
+define('SMTP_USER',      getenv('SMTP_USER')      ?: 'lancetejero05@gmail.com');
+define('SMTP_FROM',      getenv('SMTP_FROM')      ?: SMTP_USER);
+define('SMTP_FROM_NAME', getenv('SMTP_FROM_NAME') ?: 'KLPS');
+define('SMTP_PASS',      getenv('SMTP_PASS')      ?: '');
 
 // ============================================================
 // DATABASE
