@@ -1,0 +1,208 @@
+/* KLPS Enhanced Design System */
+/* Knowledge Learning Preservation System */
+
+/* Color Variables */
+:root {
+    --primary: #667eea;
+    --primary-dark: #5a67d8;
+    --secondary: #764ba2;
+    --secondary-dark: #6b46c1;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --info: #3b82f6;
+    --light: #f8fafc;
+    --dark: #1e293b;
+    --muted: #64748b;
+    --border: #e2e8f0;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--dark);
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px -5px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(to right, var(--primary-dark), var(--secondary-dark));
+}
+
+.btn-outline-primary {
+    border-color: var(--primary);
+    color: var(--primary);
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Cards */
+.card {
+    border: 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 16px -4px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Form Elements */
+.form-control {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+}
+
+/* Badges */
+.badge {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+}
+
+.bg-primary {
+    background-color: var(--primary) !important;
+}
+
+.bg-secondary {
+    background-color: var(--secondary) !important;
+}
+
+.bg-success {
+    background-color: var(--success) !important;
+}
+
+.bg-warning {
+    background-color: var(--warning) !important;
+}
+
+.bg-danger {
+    background-color: var(--danger) !important;
+}
+
+.bg-info {
+    background-color: var(--info) !important;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+.alert-dismissible .btn-close {
+    padding: 1rem;
+    margin: -1rem -1.5rem -1rem auto;
+}
+
+/* Sidebar */
+.sidebar {
+    min-height: 100vh;
+    background: #172033;
+}
+
+.sidebar a {
+    color: #dbe4f0;
+    text-decoration: none;
+    display: block;
+    padding: .7rem 1rem;
+    border-radius: .4rem;
+    transition: all 0.2s ease;
+}
+
+.sidebar a:hover {
+    background: #24324a;
+    color: white;
+}
+
+.sidebar .brand {
+    font-weight: 700;
+    color: #fff;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+        height: 60px;
+    }
+    
+    .sidebar .brand {
+        display: none;
+    }
+    
+    .sidebar a {
+        padding: .5rem;
+        text-align: center;
+    }
+    
+    .sidebar a span {
+        display: none;
+    }
+    
+    .sidebar a i {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-fluid {
+        padding: 1rem;
+    }
+    
+    .p-4 {
+        padding: 1rem !important;
+    }
+    
+    .mb-4 {
+        margin-bottom: 1rem !important;
+    }
+}

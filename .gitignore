@@ -1,0 +1,35 @@
+# User uploads — don't commit these
+/uploads/
+/uploads/profiles/
+
+# Local config with secrets — CRITICAL: never commit
+/config/config.local.php
+/config/secrets.php
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+error_log
+
+# Composer
+/vendor/
+composer.lock
+
+# Node
+node_modules/
+package-lock.json
+
+# Backups
+*.sql.bak
+*.zip
+*.rar
+*.7z
