@@ -44,27 +44,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([new_id('email_otp'), $emailValue, $otpHash]);
 
         try {
-            require_once __DIR__ . '/src/Exception.php';
-            require_once __DIR__ . '/src/PHPMailer.php';
-            require_once __DIR__ . '/src/SMTP.php';
+            // Mailtrap HTTP API (works on Railway — port 443, not blocked)
+            $mailtrapToken = getenv('MAILTRAP_API_TOKEN') ?: '';
+            $inboxId       = getenv('MAILTRAP_INBOX_ID') ?: '';
 
-            $mail = new \PHPMailer\PHPMailer\PHPMailer(true);
-            $mail->isSMTP();
-            $mail->Host       = SMTP_HOST;
-            $mail->SMTPAuth   = true;
-            $mail->Username   = SMTP_USER;
-            $mail->Password   = str_replace(' ', '', SMTP_PASS);
-            $mail->SMTPSecure = SMTP_SECURE === 'ssl'
-                ? \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS
-                : \PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port       = SMTP_PORT;
-            $mail->CharSet    = 'UTF-8';
+            if ($mailtrapToken === '' || $inboxId === '') {
+                throw new \Exception('Mailtrap API credentials not configured');
+            }
 
-            $mail->setFrom(SMTP_FROM, SMTP_FROM_NAME);
-            $mail->addAddress($emailValue);
-            $mail->isHTML(true);
-            $mail->Subject = 'Your KLPS Verification Code';
-            $mail->Body    = "
+            $emailBody = "
                 <div style='font-family:Arial,sans-serif;padding:24px;background:#0a0e1a;color:#e7ecf7;border-radius:12px;max-width:500px;'>
                     <h2 style='color:#4fd7e8;margin:0 0 12px;'>KLPS Email Verification</h2>
                     <p style='margin:0 0 8px;'>Hi {$fullNameValue},</p>
@@ -73,9 +61,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p style='color:#8892b0;font-size:13px;margin:0;'>This code expires in 5 minutes.</p>
                 </div>
             ";
-            $mail->send();
 
-            error_log("OTP sent to {$emailValue} via " . SMTP_USER);
+            $payload = json_encode([
+                'from'    => ['email' => SMTP_FROM, 'name' => SMTP_FROM_NAME],
+                'to'      => [['email' => $emailValue]],
+                'subject' => 'Your KLPS Verification Code',
+                'html'    => $emailBody,
+            ], JSON_UNESCAPED_UNICODE);
+
+            $ch = curl_init('https://sandbox.api.mailtrap.io/api/send/' . $inboxId);
+            curl_setopt_array($ch, [
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST           => true,
+                CURLOPT_POSTFIELDS     => $payload,
+                CURLOPT_HTTPHEADER     => [
+                    'Content-Type: application/json',
+                    'Api-Token: ' . $mailtrapToken,
+                ],
+                CURLOPT_TIMEOUT        => 15,
+                CURLOPT_CONNECTTIMEOUT => 10,
+            ]);
+
+            $response = curl_exec($ch);
+            $httpCode = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curlErr  = curl_error($ch);
+            curl_close($ch);
+
+            if ($curlErr !== '') {
+                throw new \Exception('cURL error: ' . $curlErr);
+            }
+            if ($httpCode < 200 || $httpCode >= 300) {
+                throw new \Exception('Mailtrap API HTTP ' . $httpCode . ': ' . $response);
+            }
+
+            error_log("OTP sent to {$emailValue} via Mailtrap API");
             echo json_encode(['success' => true, 'message' => 'Code sent.']);
         } catch (\Exception $e) {
             error_log('OTP mail failed: ' . $e->getMessage());
@@ -139,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (empty($fullNameValue) || empty($emailValue)) {
             $error = 'Please enter your full name and email.';
-        } elseif ($department_id <= 0) {
+        } elseif ($department_id === '') {
             $error = 'Please select your department.';
         } elseif (strlen($password) < 8) {
             $error = 'Password must be at least 8 characters.';
@@ -169,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         $success = 'Account created successfully! You can now sign in.';
                         $emailValue = '';
                         $fullNameValue = '';
-                        $departmentValue = 0;
+                        $departmentValue = '';
                     }
                 }
             } catch (PDOException $e) {
