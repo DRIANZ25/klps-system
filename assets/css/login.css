@@ -293,3 +293,85 @@ h1,h2,h3,h4,.brand-logo span,.form-section-title{font-family:'Orbitron', sans-se
     .brand-logo span{font-size:1.15rem;}
     .login-header h2{font-size:1.05rem;}
 }
+/* ============================================================
+   EMPLOYEE LIST — Justified layout
+   ============================================================ */
+.employee-item{
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    padding:.6rem .55rem;
+    border-radius:8px;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    font-size:.85rem;
+    transition:background .2s ease;
+}
+.employee-item:hover{
+    background:rgba(0,240,255,0.04);
+}
+.employee-item:last-child{
+    border-bottom:none;
+}
+
+.employee-info{
+    display:flex;
+    align-items:center;
+    gap:.65rem;
+    min-width:0;
+    flex:1;
+}
+
+.employee-icon{
+    width:32px;
+    height:32px;
+    border-radius:8px;
+    background:linear-gradient(135deg, var(--cyan), var(--green));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#020409;
+    font-weight:800;
+    font-size:.82rem;
+    flex-shrink:0;
+    box-shadow:0 0 10px rgba(0,240,255,0.4);
+}
+
+.employee-details{
+    display:flex;
+    flex-direction:column;
+    min-width:0;
+    flex:1;
+}
+
+.employee-name{
+    font-weight:700;
+    color:#e8f0ff;
+    font-size:.85rem;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.employee-email{
+    font-size:.72rem;
+    color:#7c8db3;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.employee-role-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:.25rem;
+    padding:.22rem .5rem;
+    background:rgba(0,255,156,0.12);
+    border:1px solid rgba(0,255,156,0.4);
+    color:var(--green);
+    border-radius:4px;
+    font-size:.63rem;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    flex-shrink:0;
+    white-space:nowrap;
+}
