@@ -101,7 +101,7 @@ while ($row = $stmt->fetch()) {
                         <input name="password" type="password" class="form-control" required placeholder="••••••••">
                         <button class="btn toggle-password" type="button"><i class="fas fa-eye"></i></button>
                     </div>
-                    <small class="text-muted">Forgot <a href="#">password?</a></small>
+                    <small class="text-muted">Forgot <a href="forgot_password.php">password?</a></small>
                 </div>
 
                 <div class="d-grid gap-2 mt-3">
@@ -132,20 +132,20 @@ while ($row = $stmt->fetch()) {
                                     <div class="employee-email"><?= e($user['email']) ?></div>
                                 </div>
                             </div>
-                            <div>
-                                <span class="employee-role">Employee</span>
+                            <span class="employee-role-badge">
+                                <i class="fas fa-user"></i>Employee
                                 <?php if (!empty($user['department_name'])): ?>
-                                    <span class="employee-department">[<?= e($user['department_name']) ?>]</span>
+                                    · <?= e($user['department_name']) ?>
                                 <?php endif; ?>
-                            </div>
+                            </span>
                         </div>
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
 
             <div class="employees-stats">
-                <span>Employees: <?= count(array_filter($registeredUsers, fn($u) => $u['role'] === 'employee')) ?></span>
-                <span>Total: <?= count($registeredUsers) ?></span>
+                <span><i class="fas fa-user-check"></i> <?= count(array_filter($registeredUsers, fn($u) => $u['role'] === 'employee')) ?> Employees</span>
+                <span><i class="fas fa-users"></i> <?= count($registeredUsers) ?> Total</span>
             </div>
         <?php else: ?>
             <div class="help-text">
